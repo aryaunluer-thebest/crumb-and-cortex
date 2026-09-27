@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crumb &amp; Cortex</title>
+<meta name="description" content="Cozy fall baking, paired with the psychology and neuroscience of why it feels so good.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Karla:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FBF4EA;
+    --paper: #F3E6D2;
+    --pumpkin: #C8692F;
+    --cinnamon: #7A4B2A;
+    --burgundy: #6E2C2C;
+    --sage: #8A9A6B;
+    --ink: #3A2A20;
+    --muted: #7B6656;
+    --line: #E6D3BA;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: "Karla", system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.65;
+  }
+  a { color: inherit; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+
+  /* Header */
+  header {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(251, 244, 234, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+  .logo {
+    display: flex; align-items: center; gap: 10px;
+    font-family: "Fraunces", serif; font-size: 1.35rem; font-weight: 600;
+    text-decoration: none; color: var(--burgundy);
+  }
+  .logo svg { width: 26px; height: 26px; }
+  .nav ul { display: flex; gap: 26px; list-style: none; }
+  .nav ul a { text-decoration: none; font-weight: 500; color: var(--cinnamon); }
+  .nav ul a:hover { color: var(--pumpkin); }
+
+  /* Hero */
+  .hero { padding: 90px 0 80px; text-align: center; position: relative; overflow: hidden; }
+  .eyebrow {
+    display: inline-block; font-size: 0.8rem; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--pumpkin); background: var(--paper);
+    padding: 6px 14px; border-radius: 999px; margin-bottom: 22px;
+  }
+  .hero h1 {
+    font-family: "Fraunces", serif; font-weight: 400;
+    font-size: clamp(2.3rem, 6vw, 3.9rem); line-height: 1.12;
+    color: var(--burgundy); max-width: 780px; margin: 0 auto 20px;
+  }
+  .hero h1 em { color: var(--pumpkin); }
+  .hero p { max-width: 560px; margin: 0 auto 32px; color: var(--muted); font-size: 1.1rem; }
+  .btn {
+    display: inline-block; background: var(--burgundy); color: var(--cream);
+    padding: 14px 28px; border-radius: 999px; text-decoration: none; font-weight: 700;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .btn:hover { background: var(--pumpkin); transform: translateY(-2px); }
+  .leaf { position: absolute; opacity: 0.18; pointer-events: none; }
+  .leaf.l1 { top: 40px; left: 6%; width: 70px; transform: rotate(-20deg); }
+  .leaf.l2 { bottom: 30px; right: 8%; width: 90px; transform: rotate(25deg); }
+
+  /* Sections */
+  section { padding: 80px 0; }
+  .section-head { text-align: center; margin-bottom: 48px; }
+  .section-head h2 {
+    font-family: "Fraunces", serif; font-weight: 400;
+    font-size: clamp(1.9rem, 4vw, 2.6rem); color: var(--burgundy);
+  }
+  .section-head p { color: var(--muted); margin-top: 8px; }
+
+  /* Recipe cards */
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .card {
+    background: #fff; border: 1px solid var(--line); border-radius: 22px;
+    overflow: hidden; display: flex; flex-direction: column;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(122, 75, 42, 0.12); }
+  /* Photo area: replace the div with <img src="your-photo.jpg" alt="..."> when you have photos */
+  .photo {
+    aspect-ratio: 4 / 3; display: flex; align-items: flex-end; padding: 14px;
+    color: rgba(255,255,255,0.9); font-size: 0.8rem; font-weight: 500;
+  }
+  .card img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; }
+  .p1 { background: linear-gradient(135deg, #D98E4F, #8C4A26); }
+  .p2 { background: linear-gradient(135deg, #E0A458, #B5652E); }
+  .p3 { background: linear-gradient(135deg, #9C6B4A, #5A3522); }
+  .card-body { padding: 24px; display: flex; flex-direction: column; flex: 1; }
+  .tag {
+    align-self: flex-start; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--sage); margin-bottom: 8px;
+  }
+  .card h3 { font-family: "Fraunces", serif; font-weight: 600; font-size: 1.35rem; line-height: 1.25; margin-bottom: 10px; }
+  .card p { color: var(--muted); font-size: 0.97rem; }
+  details { margin-top: auto; padding-top: 18px; }
+  summary {
+    cursor: pointer; font-weight: 700; color: var(--pumpkin); list-style: none;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: " →"; }
+  details[open] summary::after { content: " ↓"; }
+  details p { margin-top: 12px; color: var(--ink); }
+  .source { font-size: 0.82rem; color: var(--muted); font-style: italic; margin-top: 10px !important; }
+
+  /* About */
+  .about { background: var(--paper); }
+  .about-inner { display: grid; grid-template-columns: 1fr 1.4fr; gap: 50px; align-items: center; }
+  .about-photo {
+    aspect-ratio: 1; border-radius: 50%; max-width: 320px; margin: 0 auto; width: 100%;
+    background: linear-gradient(135deg, #E8B97E, #A85C2E);
+    border: 8px solid var(--cream);
+  }
+  .about h2 { font-family: "Fraunces", serif; font-weight: 400; font-size: 2.2rem; color: var(--burgundy); margin-bottom: 16px; }
+  .about p + p { margin-top: 14px; }
+
+  /* Bake sales */
+  .cause {
+    background: var(--burgundy); color: var(--cream); border-radius: 28px;
+    padding: 56px 40px; text-align: center; max-width: 820px; margin: 0 auto;
+  }
+  .cause h2 { font-family: "Fraunces", serif; font-weight: 400; font-size: clamp(1.8rem, 4vw, 2.4rem); margin-bottom: 14px; }
+  .cause p { max-width: 560px; margin: 0 auto; opacity: 0.9; }
+  .next {
+    display: inline-block; margin-top: 26px; background: var(--pumpkin);
+    padding: 12px 24px; border-radius: 999px; font-weight: 700;
+  }
+
+  footer { text-align: center; padding: 40px 20px 50px; color: var(--muted); font-size: 0.9rem; }
+  footer .logo { justify-content: center; margin-bottom: 8px; }
+
+  /* Mobile */
+  @media (max-width: 860px) {
+    .grid { grid-template-columns: 1fr; max-width: 460px; margin: 0 auto; }
+    .about-inner { grid-template-columns: 1fr; text-align: center; }
+  }
+  @media (max-width: 560px) {
+    .nav ul { gap: 14px; font-size: 0.9rem; }
+    .logo span { font-size: 1.1rem; }
+    .hero { padding: 64px 0 56px; }
+    .cause { padding: 40px 22px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#" class="logo">
+      <svg viewBox="0 0 24 24" fill="#C8692F" aria-hidden="true"><path d="M17 3c-6 0-11 4-11 10 0 2 .6 3.7 1.6 5.1L4 21.5l1.4 1.4 3.4-3.4C10.2 20.4 11.9 21 14 21c6 0 8-6 8-12V3h-5zm-3 16c-1.4 0-2.7-.4-3.8-1.1L16 12l-1.4-1.4-5.8 5.8C8.3 15.4 8 14.2 8 13c0-4.4 3.6-8 8-8h4v4c0 5.3-1.9 10-6 10z"/></svg>
+      <span>Crumb &amp; Cortex</span>
+    </a>
+    <ul>
+      <li><a href="#recipes">Recipes</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#cause">Bake Sales</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <svg class="leaf l1" viewBox="0 0 24 24" fill="#C8692F" aria-hidden="true"><path d="M17 3c-6 0-11 4-11 10 0 2 .6 3.7 1.6 5.1L4 21.5l1.4 1.4 3.4-3.4C10.2 20.4 11.9 21 14 21c6 0 8-6 8-12V3h-5z"/></svg>
+    <svg class="leaf l2" viewBox="0 0 24 24" fill="#6E2C2C" aria-hidden="true"><path d="M17 3c-6 0-11 4-11 10 0 2 .6 3.7 1.6 5.1L4 21.5l1.4 1.4 3.4-3.4C10.2 20.4 11.9 21 14 21c6 0 8-6 8-12V3h-5z"/></svg>
+    <div class="wrap">
+      <span class="eyebrow">Fall bakes · Psychology · Neuroscience</span>
+      <h1>Cozy baking, and the science of <em>why it feels so good.</em></h1>
+      <p>Every recipe here comes with a short look at what's happening in your brain while you bake it, smell it, and eat it.</p>
+      <a href="#recipes" class="btn">Read this season's bakes</a>
+    </div>
+  </div>
+
+  <section id="recipes">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>This season's bakes</h2>
+        <p>One recipe, one idea from psychology.</p>
+      </div>
+
+      <div class="grid">
+        <article class="card">
+          <div class="photo p1">Add your photo</div>
+          <div class="card-body">
+            <span class="tag">Memory</span>
+            <h3>Apple Cinnamon Muffins</h3>
+            <p>Why one whiff of cinnamon can pull you straight back into a specific autumn years ago.</p>
+            <details>
+              <summary>Read the science</summary>
+              <p>Smell is wired differently from our other senses. Signals from the nose reach brain areas involved in emotion (the amygdala) and memory (the hippocampus) with fewer relay stops than sight or sound. That's one reason memories triggered by smell often feel unusually vivid and emotional.</p>
+              <p class="source">Further reading: Rachel Herz's research on odor-evoked memory.</p>
+            </details>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="photo p2">Add your photo</div>
+          <div class="card-body">
+            <span class="tag">Reward</span>
+            <h3>Spiced Pumpkin Bread</h3>
+            <p>Why waiting for bread to come out of the oven can be almost as exciting as eating it.</p>
+            <details>
+              <summary>Read the science</summary>
+              <p>Dopamine is often called the "pleasure chemical," but researchers have found it's more closely tied to <em>wanting</em> and anticipation than to the enjoyment itself. The smell drifting from the oven builds that anticipation before you ever take a bite.</p>
+              <p class="source">Further reading: Kent Berridge and Terry Robinson on "wanting" vs. "liking."</p>
+            </details>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="photo p3">Add your photo</div>
+          <div class="card-body">
+            <span class="tag">Focus</span>
+            <h3>Brown Butter Chocolate Chip Cookies</h3>
+            <p>Why measuring, stirring, and watching butter brown can make time disappear.</p>
+            <details>
+              <summary>Read the science</summary>
+              <p>Psychologist Mihaly Csikszentmihalyi described "flow": a state of deep focus that happens when a task is challenging enough to hold your attention but not so hard that it's frustrating. Hands-on tasks with clear steps and instant feedback, like baking, are a classic setting for it.</p>
+              <p class="source">Further reading: Csikszentmihalyi, <em>Flow: The Psychology of Optimal Experience</em> (1990).</p>
+            </details>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="about">
+    <div class="wrap about-inner">
+      <div class="about-photo" role="img" aria-label="Photo of the baker"></div>
+      <div>
+        <h2>Hi, I'm [Your Name].</h2>
+        <p>I'm a high school senior who loves two things: baking, and understanding how the mind works. Crumb &amp; Cortex is where those meet.</p>
+        <p>Each post pairs a recipe I've actually baked with a real idea from psychology or neuroscience, explained simply and with sources.</p>
+        <p>Website built with [Collaborator's Name].</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="cause">
+    <div class="wrap">
+      <div class="cause">
+        <h2>Baking for a cause</h2>
+        <p>I'm hosting bake sales at school, and all proceeds go to [Nonprofit Name], which supports mental health in our community. Updates from each sale will be posted here.</p>
+        <span class="next">Next bake sale: [Date]</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <a href="#" class="logo"><span>Crumb &amp; Cortex</span></a>
+  <p>Baked and written by [Your Name] · Fall 2026</p>
+</footer>
+
+</body>
+</html>
